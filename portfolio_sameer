@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sameer - Python Developer Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #F43F5E; --primary-dark: #BE123C; --secondary: #0F172A; --tertiary: #1E293B; --text: #E2E8F0; --text-secondary: #CBD5E1; --accent: #06B6D4; --success: #10B981; }
+        body.dark-mode { --primary: #38BDF8; --primary-dark: #0E7490; --secondary: #F8FAFC; --tertiary: #F1F5F9; --text: #0F172A; --text-secondary: #475569; --accent: #EC4899; }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--secondary); color: var(--text);
+            overflow-x: hidden; line-height: 1.6; transition: background 0.4s, color 0.4s;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* ===== NEW: CUSTOM CURSOR ===== */
+        .cursor {
+            width: 20px; height: 20px; border: 2px solid var(--primary);
+            border-radius: 50%; position: fixed;
+            pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            z-index: 9999;
+        }
+        .cursor-grow {
+            width: 40px; height: 40px; background-color: rgba(244, 63, 94, 0.3);
+        }
+        body.dark-mode .cursor-grow { background-color: rgba(56, 189, 248, 0.3); }
+
+        .bg-container { position: fixed; inset: 0; z-index: -2; }
+        .gradient-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; transition: transform 0.3s ease-out; }
+        .blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--primary), transparent); top: -100px; left: -100px; animation: float 30s infinite ease-in-out; }
+        .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, var(--accent), transparent); bottom: 100px; right: -100px; animation: float 35s infinite ease-in-out reverse; }
+        .blob-3 { width: 350px; height: 350px; background: radial-gradient(circle, #8B5CF6, transparent); top: 50%; left: 50%; animation: float 25s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(40px, -60px) rotate(90deg); } 50% { transform: translate(-30px, 50px) rotate(180deg); } 75% { transform: translate(50px, -40px) rotate(270deg); } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+        .grid-bg { position: fixed; inset: 0; background-image: linear-gradient(rgba(244, 63, 94, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(244, 63, 94, 0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: -1; }
+        body.dark-mode .grid-bg { background-image: linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px); }
+
+        nav { position: fixed; top: 0; width: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(244, 63, 94, 0.15); z-index: 1000; padding: 1.2rem 2rem; transition: all 0.3s ease; }
+        body.dark-mode nav { background: rgba(248, 250, 252, 0.85); border-bottom-color: rgba(56, 189, 248, 0.2); }
+        nav.scrolled { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(244, 63, 94, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        body.dark-mode nav.scrolled { background: rgba(248, 250, 252, 0.95); border-bottom-color: rgba(56, 189, 248, 0.3); }
+
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; cursor: pointer; transition: transform 0.3s; }
+        .logo:hover { transform: scale(1.1); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .theme-toggle { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle:hover { transform: scale(1.1) rotate(20deg); box-shadow: 0 0 30px rgba(244, 63, 94, 0.4); }
+        body.dark-mode .theme-toggle:hover { box-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
+
+        .hero { max-width: 1400px; margin: 0 auto; padding: 140px 2rem 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; min-height: 100vh; }
+        .hero-content { animation: slideInLeft 1s ease-out; }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: translateX(0); } }
+        .hero-subtitle { font-size: 0.95rem; color: var(--primary); font-weight: 700; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase; animation: fadeInUp 1s ease-out 0.2s both; }
+        .hero h1 { font-size: 4.5rem; font-weight: 900; line-height: 1.15; margin-bottom: 1rem; animation: fadeInUp 1s ease-out 0.4s both; color: var(--text); }
+        .hero h1 .gradient-text { background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .role-text { font-size: 1.8rem; font-weight: 700; height: 2.5rem; color: var(--accent); margin-bottom: 1.5rem; animation: fadeInUp 1s ease-out 0.6s both; min-height: 60px; }
+        #roleText::after { content: '|'; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.8s both; max-width: 500px; }
+        .hero-buttons { display: flex; gap: 1.5rem; margin-bottom: 3rem; animation: fadeInUp 1s ease-out 1s both; flex-wrap: wrap; }
+        .btn { padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 15px 40px rgba(244, 63, 94, 0.3); }
+        body.dark-mode .btn-primary { box-shadow: 0 15px 40px rgba(56, 189, 248, 0.3); }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 25px 60px rgba(244, 63, 94, 0.5); }
+        body.dark-mode .btn-primary:hover { box-shadow: 0 25px 60px rgba(56, 189, 248, 0.5); }
+        .btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-secondary:hover { background: rgba(244, 63, 94, 0.1); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(244, 63, 94, 0.2); }
+        body.dark-mode .btn-secondary:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2); }
+        .btn i { margin-right: 0.7rem; }
+        .social-links { display: flex; gap: 1.5rem; animation: fadeInUp 1s ease-out 1.2s both; }
+        .social-link { width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(6, 182, 212, 0.15)); border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; color: var(--primary); text-decoration: none; transition: all 0.3s; font-size: 1.2rem; }
+        .social-link:hover { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; transform: translateY(-8px) rotate(360deg); box-shadow: 0 15px 40px rgba(244, 63, 94, 0.4); border-color: transparent; }
+
+        .hero-image { position: relative; display: flex; justify-content: center; align-items: center; animation: slideInRight 1s ease-out; }
+        .profile-picture { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+        .profile-frame { position: relative; width: 350px; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(244, 63, 94, 0.3); transition: transform 0.3s ease-out; }
+        .profile-frame::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 3px; z-index: 1; border-radius: 20px; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+        .profile-inner { width: 100%; height: 100%; background: var(--tertiary); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 100px; animation: breathe 5s ease-in-out infinite; backdrop-filter: blur(10px); }
+        .profile-innerr { width: 100%; height: 100%; background: var(--tertiary); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 100px; backdrop-filter: blur(10px); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        section { max-width: 1400px; margin: 0 auto; padding: 100px 2rem; position: relative; }
+        .section-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 4rem; position: relative; display: inline-block; text-align: center; width: 100%; }
+        .section-title::after { content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 100px; height: 5px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 3px; }
+        #about { background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(6, 182, 212, 0.05)); }
+        body.dark-mode #about { background: var(--tertiary); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 3rem; }
+        .about-text p { font-size: 1.1rem; color: var(--text-secondary); line-height: 2; margin-bottom: 1.5rem; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; perspective: 1000px; }
+        .project-card { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 15px; transition: all 0.2s ease-out; cursor: pointer; position: relative; overflow: hidden; transform-style: preserve-3d; }
+        .project-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.2), transparent 40%); opacity: 0; transition: opacity 0.3s; z-index: 2; }
+        .project-card:hover::before { opacity: 1; }
+        .project-card:hover { border-color: var(--primary); }
+        .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+        .project-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; flex: 1; }
+        .project-icon { font-size: 1.5rem; color: var(--accent); }
+        .project-desc { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7; }
+        
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .skill-box { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; }
+        .skill-box:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .skill-name { display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600; }
+        .skill-bar { height: 10px; background: rgba(244, 63, 94, 0.2); border-radius: 10px; overflow: hidden; }
+        body.dark-mode .skill-bar { background: rgba(56, 189, 248, 0.2); }
+        .skill-progress { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 10px; transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.5); width: 0; }
+        body.dark-mode .skill-progress { box-shadow: 0 0 15px rgba(56, 189, 248, 0.5); }
+        
+        .contact-wrapper { max-width: 700px; margin: 3rem auto 0; }
+        .contact-form { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 3rem; border-radius: 20px; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.7rem; font-weight: 600; color: var(--primary); }
+        .form-group input, .form-group textarea { width: 100%; padding: 1rem; background: var(--secondary); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--text); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(244, 63, 94, 0.3); background: var(--tertiary); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .contact-btn { width: 100%; }
+        .form-message { margin-top: 1.5rem; padding: 1rem; border-radius: 10px; text-align: center; display: none; animation: slideDown 0.3s ease-out; }
+        .form-message.success { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 2000; animation: fadeIn 0.3s ease-out; }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 20px; padding: 3rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { transform: scale(1.2) rotate(90deg); }
+        .modal h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--primary); }
+        .modal p { color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.8; }
+        .modal-btn { display: inline-block; }
+        
+        footer { background: var(--tertiary); border-top: 1px solid rgba(244, 63, 94, 0.2); padding: 3rem 2rem; text-align: center; color: var(--text-secondary); }
+        
+        #scrollTopBtn { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; opacity: 0; text-decoration: none; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 1001; }
+        #scrollTopBtn.show { opacity: 1; pointer-events: auto; }
+        #scrollTopBtn:hover { transform: translateY(-5px); }
+        
+        @media (max-width: 992px) { .hero, .about-content { grid-template-columns: 1fr; text-align: center; } .hero-content { order: 2; } .hero-image { order: 1; margin-bottom: 2rem; } .hero-desc { margin: 0 auto 2.5rem; } .hero-buttons, .social-links { justify-content: center; } }
+        @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 1rem; } .hero { padding: 120px 1rem 60px; } .hero h1 { font-size: 2.5rem; } .profile-frame { width: 250px; height: 300px; } .profile-inner { font-size: 70px; } .btn { width: 100%; } .hero-buttons { flex-direction: column; } section { padding: 60px 1rem; } .section-title { font-size: 2rem; } .modal-content { padding: 2rem; } .cursor { display: none; } body { cursor: auto; } }
+        @media (max-width: 480px) { .hero h1 { font-size: 2rem; } .role-text { font-size: 1.3rem; } .social-links { gap: 1rem; } .social-link { width: 45px; height: 45px; font-size: 1rem; } .section-title { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="bg-container">
+        <div class="gradient-blob blob-1"></div>
+        <div class="gradient-blob blob-2"></div>
+        <div class="gradient-blob blob-3"></div>
+    </div>
+    <div class="grid-bg"></div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">SAMEER</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-subtitle">Welcome to my portfolio</p>
+            <h1>Hi, I'm <span class="gradient-text">Sameer</span></h1>
+            <div class="role-text">
+                <i class="fas fa-caret-right" style="color: var(--accent); margin-right: 10px;"></i>
+                <span id="roleText"></span>
+            </div>
+            <p class="hero-desc">I work with Python for data analysis and AI/ML projects, turning data into insights and solutions and explore the world of data science. Passionate about turning complex problems into elegant code.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i>Get in Touch</a>
+                <a href="#projects" class="btn btn-secondary"><i class="fas fa-briefcase"></i>View Projects</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Sameer-achara" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/sameer-achara-9a894b3ba/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://x.com/Same60336" target="_blank" class="social-link" title="X"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="hero-image">
+             <div class="profile-frame">
+                <div class="profile-inner">
+                    🐍 👨‍💻
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title" data-aos="fade-up">About Me</h2>
+        <div class="about-content">
+            <div class="about-text" data-aos="fade-right" data-aos-delay="200">
+                <p>Hello! I'm Sameer, a dedicated Python Developer with a keen interest in AI/ML, automation, and data analysis. Currently pursuing my engineering degree, I thrive on challenges and am constantly expanding my technical toolkit.</p>
+                <p>My journey in programming started with a simple ‘Hello, World!’ and has grown into a passion for analyzing data and building AI/ML solutions. I work with Python, Pandas, Numpy, and Matplotlib to turn data into meaningful insights.</p>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-delay="400">
+                 <div class="profile-frame" style="width: 300px; height: 350px;">
+                    <div class="profile-innerr" style="font-size: 80px;">
+                        <img src="https://raw.githubusercontent.com/Sameer-achara/my-portfolio/main/Gemini_Generated_Image_w60a06w60a06w60a.png" 
+     style="width:100%; height:100%; object-fit:cover; border-radius:20px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card" data-link="https://github.com/Sameer-achara/my_quiz.git" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-header"><h3>My Quiz</h3><i class="project-icon fas fa-question-circle"></i></div>
+                <p class="project-desc">A Python-based interactive quiz game.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/Student-Result-Analyzer.git" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-header"><h3>Student-Result-Analyzer</h3><i class="project-icon fas fa-graduation-cap"></i></div>
+                <p class="project-desc">Python project to calculate student marks, percentage, grades, pass/fail status, subject-wise toppers, and export results to Excel.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/IPL-2025-Batting-Statistics-Dashboard.git" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-header"><h3>IPL-2025-Batting-Statistics-Dashboard</h3><i class="project-icon fas fa-list"></i></div>
+                <p class="project-desc">An interactive Python dashboard for analyzing IPL 2025 batting statistics with beautiful visualizations...</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/Sam-s-MultiTool.git" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-header"><h3>Sam-s-MultiTool</h3><i class="project-icon fas fa-tools"></i></div>
+                <p class="project-desc">This Python project is a command-line interface (CLI) application that combines multiple interactive tools and games into a single hub...</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/bollywood-music-analyzer.git" data-aos="fade-up" data-aos-delay="500">
+                <div class="project-header"><h3>Bollywood-music-analyzer</h3><i class="project-icon fas fa-headphones"></i></div>
+                <p class="project-desc">A Python mini-project that filters Bollywood songs based on mood, rating, and popularity using pandas.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/movie_rating_analyzer.git" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-header"><h3>Movie_rating_analyzer</h3><i class="project-icon fas fa-star"></i></div>
+                <p class="project-desc">A Python project to analyze and filter movies dataset with features like search by title, genre, year, and rating.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/Weather-Data-Analysis-India" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-header"><h3>India Weather Data Analysis</h3><i class="project-icon fas fa-cloud-sun"></i></div>
+                <p class="project-desc">A Python project to analyze weather and AQI data of 50 Indian cities, featuring statistical summaries, trend detection, and visualization.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/BMI_Calculator" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-header"><h3>BMI Calculator</h3><i class="project-icon fas fa-heartbeat"></i></div>
+                <p class="project-desc">A Python project to calculate Body Mass Index (BMI) with user-friendly input, health category classification, and clear results visualization.</p>
+            </div>
+            <div class="project-card" data-link="https://github.com/Sameer-achara/stone-paper-scissors" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-header"><h3>Stone Paper Scissor Game</h3><i class="project-icon fas fa-gamepad"></i></div>
+                <p class="project-desc">A Python project implementing the classic Stone–Paper–Scissor game with interactive user input, random computer moves, and instant win/lose/draw results.</p>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+   <section id="skills">
+  <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
+  <div class="skills-container">
+
+    <!-- Python -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
+      <div class="skill-name">
+        <i class="fab fa-python"></i> <span>Python</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- HTML -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
+      <div class="skill-name">
+        <i class="fab fa-html5"></i> <span>HTML</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- CSS -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
+      <div class="skill-name">
+        <i class="fab fa-css3-alt"></i> <span>CSS</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- C++ -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="400">
+      <div class="skill-name">
+        <i class="fas fa-code"></i> <span>C++</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- C -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="500">
+      <div class="skill-name">
+        <i class="fas fa-terminal"></i> <span>C</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- Pandas / NumPy / Matplotlib -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="600">
+      <div class="skill-name">
+        <i class="fas fa-chart-line"></i> <span>Pandas / NumPy / Matplotlib</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- GitHub -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="700">
+      <div class="skill-name">
+        <i class="fab fa-github"></i> <span>GitHub</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+    <!-- VS Code -->
+    <div class="skill-box" data-aos="fade-up" data-aos-delay="800">
+      <div class="skill-name">
+        <i class="fas fa-laptop-code"></i> <span>VS Code</span>
+      </div>
+      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+    </div>
+
+  </div>
+</section>
+
+    <section id="contact">
+        <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+        <div class="contact-wrapper" data-aos="fade-up" data-aos-delay="200">
+            <form class="contact-form" action="https://formspree.io/f/mreoelqa" method="POST">
+                <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" required></div>
+                <div class="form-group"><label for="email">Your Email</label><input type="email" id="email" name="email" required></div>
+                <div class="form-group"><label for="message">Your Message</label><textarea id="message" name="message" required></textarea></div>
+                <button type="submit" class="btn btn-primary contact-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer><p>&copy; 2025 Sameer The Developer. All Rights Reserved.</p></footer>
+    <div class="modal"></div>
+    <a href="#" id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ duration: 800, once: true, offset: 50 });
+
+            const cursor = document.querySelector('.cursor');
+            const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-box, .logo, .theme-toggle');
+            window.addEventListener('mousemove', e => {
+                cursor.style.top = e.clientY + 'px';
+                cursor.style.left = e.clientX + 'px';
+            });
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
+            });
+
+            const hero = document.querySelector('.hero');
+            const blobs = document.querySelectorAll('.gradient-blob');
+            const heroImage = document.querySelector('.hero-image .profile-frame');
+            hero.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const x = (clientX - window.innerWidth / 2) / 50;
+                const y = (clientY - window.innerHeight / 2) / 50;
+                blobs.forEach(blob => { blob.style.transform = `translate(${x}px, ${y}px)`; });
+                if(heroImage) heroImage.style.transform = `translate(${x / 2}px, ${y / 2}px) rotateX(${-y/4}deg) rotateY(${x/4}deg)`;
+            });
+
+            const roleTextElement = document.getElementById('roleText');
+            const roles = ["Engineering Student", "Python Developer", "EDA & Visualization Explorer", "AI/ML Enthusiast"];
+            let roleIndex = 0; let charIndex = 0; let isDeleting = false;
+            function type() {
+                const currentRole = roles[roleIndex];
+                let displayText = isDeleting ? currentRole.substring(0, charIndex - 1) : currentRole.substring(0, charIndex + 1);
+                roleTextElement.textContent = displayText;
+                charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+                let typeSpeed = isDeleting ? 75 : 150;
+                if (!isDeleting && charIndex === currentRole.length) { typeSpeed = 2000; isDeleting = true; } 
+                else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; typeSpeed = 500; }
+                setTimeout(type, typeSpeed);
+            }
+            type();
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+            
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                themeToggle.innerHTML = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            });
+
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                });
+            });
+
+            const modal = document.querySelector('.modal');
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = card.querySelector('h3').textContent;
+                    const desc = card.querySelector('.project-desc').textContent;
+                    const link = card.dataset.link;
+                    modal.innerHTML = `<div class="modal-content"><button class="modal-close">&times;</button><h2>${title}</h2><p>${desc}</p><a href="${link}" target="_blank" class="btn btn-primary modal-btn"><i class="fab fa-github"></i> View on GitHub</a></div>`;
+                    modal.classList.add('active');
+                    modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+                });
+            });
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('show', window.scrollY > 400));
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            const skillObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBox = entry.target;
+                        const progressBar = skillBox.querySelector('.skill-progress');
+                        const percentText = skillBox.querySelector('.skill-percent');
+                        const targetWidth = parseInt(progressBar.dataset.width);
+
+                        progressBar.style.width = targetWidth + '%';
+
+                        let currentPercent = 0;
+                        const interval = setInterval(() => {
+                            if (currentPercent >= targetWidth) {
+                                clearInterval(interval);
+                                if (percentText) percentText.textContent = targetWidth + '%';
+                            } else {
+                                currentPercent++;
+                                if (percentText) percentText.textContent = currentPercent + '%';
+                            }
+                        }, 20);
+                        observer.unobserve(skillBox);
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('.skill-box').forEach(box => skillObserver.observe(box));
+
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            window.addEventListener('scroll', () => {
+                let current = 'home';
+                sections.forEach(section => { if (pageYOffset >= section.offsetTop - 150) current = section.id; });
+                navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href').includes(current)));
+            });
+        });
+    </script>
+</body>
+</html>
