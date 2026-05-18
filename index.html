@@ -17,10 +17,9 @@
         body {
             font-family: 'Inter', sans-serif; background: var(--secondary); color: var(--text);
             overflow-x: hidden; line-height: 1.6; transition: background 0.4s, color 0.4s;
-            cursor: none; /* Hide default cursor */
+            cursor: none;
         }
 
-        /* ===== NEW: CUSTOM CURSOR ===== */
         .cursor {
             width: 20px; height: 20px; border: 2px solid var(--primary);
             border-radius: 50%; position: fixed;
@@ -28,9 +27,7 @@
             transition: width 0.3s, height 0.3s, background-color 0.3s;
             z-index: 9999;
         }
-        .cursor-grow {
-            width: 40px; height: 40px; background-color: rgba(244, 63, 94, 0.3);
-        }
+        .cursor-grow { width: 40px; height: 40px; background-color: rgba(244, 63, 94, 0.3); }
         body.dark-mode .cursor-grow { background-color: rgba(56, 189, 248, 0.3); }
 
         .bg-container { position: fixed; inset: 0; z-index: -2; }
@@ -52,11 +49,18 @@
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; cursor: pointer; transition: transform 0.3s; }
         .logo:hover { transform: scale(1.1); }
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+        /* Resume button in nav */
+        .nav-resume-btn { padding: 0.5rem 1.2rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
+        .nav-resume-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244, 63, 94, 0.4); }
+        body.dark-mode .nav-resume-btn:hover { box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4); }
 
         .theme-toggle { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .theme-toggle:hover { transform: scale(1.1) rotate(20deg); box-shadow: 0 0 30px rgba(244, 63, 94, 0.4); }
@@ -73,7 +77,7 @@
         @keyframes blink { 50% { opacity: 0; } }
         .hero-desc { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.8s both; max-width: 500px; }
         .hero-buttons { display: flex; gap: 1.5rem; margin-bottom: 3rem; animation: fadeInUp 1s ease-out 1s both; flex-wrap: wrap; }
-        .btn { padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        .btn { padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; font-family: 'Poppins', sans-serif; text-decoration: none; display: inline-flex; align-items: center; }
         .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 15px 40px rgba(244, 63, 94, 0.3); }
         body.dark-mode .btn-primary { box-shadow: 0 15px 40px rgba(56, 189, 248, 0.3); }
         .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 25px 60px rgba(244, 63, 94, 0.5); }
@@ -82,9 +86,13 @@
         .btn-secondary:hover { background: rgba(244, 63, 94, 0.1); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(244, 63, 94, 0.2); }
         body.dark-mode .btn-secondary:hover { background: rgba(56, 189, 248, 0.1); box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2); }
         .btn i { margin-right: 0.7rem; }
-        .social-links { display: flex; gap: 1.5rem; animation: fadeInUp 1s ease-out 1.2s both; }
+        .btn-sm { padding: 0.55rem 1rem; font-size: 0.82rem; border-radius: 8px; }
+        .btn-sm i { margin-right: 0.4rem; }
+        .social-links { display: flex; gap: 1.5rem; align-items: center; animation: fadeInUp 1s ease-out 1.2s both; flex-wrap: wrap; }
         .social-link { width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(6, 182, 212, 0.15)); border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; color: var(--primary); text-decoration: none; transition: all 0.3s; font-size: 1.2rem; }
         .social-link:hover { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; transform: translateY(-8px) rotate(360deg); box-shadow: 0 15px 40px rgba(244, 63, 94, 0.4); border-color: transparent; }
+        .resume-download-link { padding: 0.7rem 1.4rem; background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)); border: 2px solid var(--success); color: var(--success); border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; }
+        .resume-download-link:hover { background: rgba(16,185,129,0.2); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(16,185,129,0.3); }
 
         .hero-image { position: relative; display: flex; justify-content: center; align-items: center; animation: slideInRight 1s ease-out; }
         .profile-picture { width: 100%; height: 100%; object-fit: cover; }
@@ -103,16 +111,46 @@
         .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 3rem; }
         .about-text p { font-size: 1.1rem; color: var(--text-secondary); line-height: 2; margin-bottom: 1.5rem; }
 
+        /* ===== EXPERIENCE SECTION ===== */
+        #experience { background: linear-gradient(135deg, rgba(16, 185, 129, 0.04), rgba(6, 182, 212, 0.04)); }
+        .experience-timeline { margin-top: 3rem; position: relative; }
+        .experience-timeline::before { content: ''; position: absolute; left: 30px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--primary), var(--accent)); opacity: 0.4; }
+        .exp-card { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 15px; padding: 2rem 2rem 2rem 5rem; margin-bottom: 2rem; position: relative; transition: all 0.3s; }
+        .exp-card:hover { border-color: var(--primary); transform: translateX(8px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .exp-dot { position: absolute; left: 21px; top: 2rem; width: 20px; height: 20px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; border: 3px solid var(--secondary); box-shadow: 0 0 15px rgba(244, 63, 94, 0.5); }
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+        .exp-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+        .exp-company { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 0.3rem; }
+        .exp-date { font-size: 0.85rem; color: var(--text-secondary); background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); padding: 0.3rem 0.8rem; border-radius: 20px; white-space: nowrap; }
+        .exp-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+        .exp-desc ul { padding-left: 1.2rem; }
+        .exp-desc ul li { margin-bottom: 0.4rem; }
+        .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+        .exp-tag { padding: 0.25rem 0.7rem; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); color: var(--accent); border-radius: 6px; font-size: 0.78rem; font-weight: 600; }
+
+        /* ===== PROJECTS ===== */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; perspective: 1000px; }
-        .project-card { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 15px; transition: all 0.2s ease-out; cursor: pointer; position: relative; overflow: hidden; transform-style: preserve-3d; }
+        .project-card { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 15px; transition: all 0.2s ease-out; cursor: default; position: relative; overflow: hidden; transform-style: preserve-3d; display: flex; flex-direction: column; }
         .project-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.2), transparent 40%); opacity: 0; transition: opacity 0.3s; z-index: 2; }
         .project-card:hover::before { opacity: 1; }
         .project-card:hover { border-color: var(--primary); }
-        .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
-        .project-card h3 { font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; flex: 1; }
+        .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.8rem; }
+        .project-card h3 { font-size: 1.2rem; color: var(--primary); flex: 1; }
         .project-icon { font-size: 1.5rem; color: var(--accent); }
-        .project-desc { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7; }
-        
+        .project-desc { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.7; flex: 1; }
+
+        /* Tech stack badges */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+        .tech-badge { padding: 0.2rem 0.6rem; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25); color: var(--primary); border-radius: 5px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px; }
+
+        /* Project action buttons */
+        .project-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; position: relative; z-index: 3; }
+        .btn-ghost { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'Poppins', sans-serif; }
+        .btn-ghost-primary { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+        .btn-ghost-primary:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .btn-ghost-accent { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+        .btn-ghost-accent:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+
         .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
         .skill-box { background: var(--tertiary); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; }
         .skill-box:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
@@ -130,9 +168,6 @@
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(244, 63, 94, 0.3); background: var(--tertiary); }
         .form-group textarea { resize: vertical; min-height: 120px; }
         .contact-btn { width: 100%; }
-        .form-message { margin-top: 1.5rem; padding: 1rem; border-radius: 10px; text-align: center; display: none; animation: slideDown 0.3s ease-out; }
-        .form-message.success { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
         .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 2000; animation: fadeIn 0.3s ease-out; }
         .modal.active { display: flex; align-items: center; justify-content: center; }
@@ -151,8 +186,8 @@
         #scrollTopBtn.show { opacity: 1; pointer-events: auto; }
         #scrollTopBtn:hover { transform: translateY(-5px); }
         
-        @media (max-width: 992px) { .hero, .about-content { grid-template-columns: 1fr; text-align: center; } .hero-content { order: 2; } .hero-image { order: 1; margin-bottom: 2rem; } .hero-desc { margin: 0 auto 2.5rem; } .hero-buttons, .social-links { justify-content: center; } }
-        @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 1rem; } .hero { padding: 120px 1rem 60px; } .hero h1 { font-size: 2.5rem; } .profile-frame { width: 250px; height: 300px; } .profile-inner { font-size: 70px; } .btn { width: 100%; } .hero-buttons { flex-direction: column; } section { padding: 60px 1rem; } .section-title { font-size: 2rem; } .modal-content { padding: 2rem; } .cursor { display: none; } body { cursor: auto; } }
+        @media (max-width: 992px) { .hero, .about-content { grid-template-columns: 1fr; text-align: center; } .hero-content { order: 2; } .hero-image { order: 1; margin-bottom: 2rem; } .hero-desc { margin: 0 auto 2.5rem; } .hero-buttons, .social-links { justify-content: center; } .experience-timeline::before { display: none; } .exp-card { padding-left: 2rem; } .exp-dot { display: none; } }
+        @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 1rem; } .hero { padding: 120px 1rem 60px; } .hero h1 { font-size: 2.5rem; } .profile-frame { width: 250px; height: 300px; } .profile-inner { font-size: 70px; } .btn { width: 100%; justify-content: center; } .hero-buttons { flex-direction: column; } section { padding: 60px 1rem; } .section-title { font-size: 2rem; } .modal-content { padding: 2rem; } .cursor { display: none; } body { cursor: auto; } .nav-resume-btn { display: none; } }
         @media (max-width: 480px) { .hero h1 { font-size: 2rem; } .role-text { font-size: 1.3rem; } .social-links { gap: 1rem; } .social-link { width: 45px; height: 45px; font-size: 1rem; } .section-title { font-size: 1.8rem; } }
     </style>
 </head>
@@ -171,11 +206,18 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+            <div class="nav-right">
+               
+                <a href="Sameer_Achara_Resume_updated.pdf" class="nav-resume-btn" download title="Download Resume">
+                    <i class="fas fa-download"></i> Resume
+                </a>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌙</button>
+            </div>
         </div>
     </nav>
 
@@ -187,7 +229,7 @@
                 <i class="fas fa-caret-right" style="color: var(--accent); margin-right: 10px;"></i>
                 <span id="roleText"></span>
             </div>
-            <p class="hero-desc">I work with Python for data analysis and AI/ML projects, turning data into insights and solutions and explore the world of data science. Passionate about turning complex problems into elegant code.</p>
+            <p class="hero-desc">B.Tech CSE student passionate about AI/ML, Data Science, and real-world problem solving. I build practical, data-driven applications using Python — turning raw data into meaningful insights and working solutions.</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i>Get in Touch</a>
                 <a href="#projects" class="btn btn-secondary"><i class="fas fa-briefcase"></i>View Projects</a>
@@ -196,13 +238,15 @@
                 <a href="https://github.com/Sameer-achara" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/sameer-achara-9a894b3ba/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://x.com/Same60336" target="_blank" class="social-link" title="X"><i class="fab fa-twitter"></i></a>
+                <!-- Replace href="#" with your actual resume PDF link -->
+                <a href="Sameer_Achara_Resume_updated.pdf" class="resume-download-link" download title="Download Resume">
+                    <i class="fas fa-file-alt"></i> Resume
+                </a>
             </div>
         </div>
         <div class="hero-image">
              <div class="profile-frame">
-                <div class="profile-inner">
-                    🐍 👨‍💻
-                </div>
+                <div class="profile-inner">🐍 👨‍💻</div>
             </div>
         </div>
     </section>
@@ -211,8 +255,8 @@
         <h2 class="section-title" data-aos="fade-up">About Me</h2>
         <div class="about-content">
             <div class="about-text" data-aos="fade-right" data-aos-delay="200">
-                <p>Hello! I'm Sameer, a dedicated Python Developer with a keen interest in AI/ML, automation, and data analysis. Currently pursuing my engineering degree, I thrive on challenges and am constantly expanding my technical toolkit.</p>
-                <p>My journey in programming started with a simple ‘Hello, World!’ and has grown into a passion for analyzing data and building AI/ML solutions. I work with Python, Pandas, Numpy, and Matplotlib to turn data into meaningful insights.</p>
+                <p>I'm a B.Tech CSE student passionate about <strong style="color: var(--primary)">AI/ML, Data Science, and problem solving</strong>. Currently gaining hands-on experience through industrial training at DMV CoreTech, where I'm working on real-world data pipelines, EDA, and ML workflows.</p>
+                <p>I enjoy building practical and user-focused applications while continuously sharpening my technical skills. From analyzing IPL stats to building multi-tool CLI apps, I love turning complex problems into clean, working code.</p>
             </div>
             <div class="hero-image" data-aos="fade-left" data-aos-delay="400">
                  <div class="profile-frame" style="width: 300px; height: 350px;">
@@ -225,118 +269,193 @@
         </div>
     </section>
 
+    <!-- ===== EXPERIENCE SECTION (NEW) ===== -->
+    <section id="experience">
+        <h2 class="section-title" data-aos="fade-up">Experience</h2>
+        <div class="experience-timeline">
+            <div class="exp-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="exp-dot"></div>
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">Data Science Intern</div>
+                        <div class="exp-company"><i class="fas fa-building" style="margin-right:0.4rem;"></i>DMV CoreTech</div>
+                    </div>
+                    <div class="exp-date"><i class="fas fa-calendar-alt" style="margin-right:0.4rem;"></i>May 2026 – June 2026</div>
+                </div>
+                <div class="exp-desc">
+                    <ul>
+                        <li>Working on Exploratory Data Analysis (EDA) and data preprocessing pipelines</li>
+                        <li>Using Python, Pandas, NumPy, and Scikit-learn on real-world datasets</li>
+                        <li>Learning and applying ML workflows, feature engineering, and model evaluation</li>
+                        <li>Gaining practical exposure to industry data science practices and standards</li>
+                    </ul>
+                </div>
+                <div class="exp-tags">
+                    <span class="exp-tag">Python</span>
+                    <span class="exp-tag">Pandas</span>
+                    <span class="exp-tag">NumPy</span>
+                    <span class="exp-tag">Scikit-learn</span>
+                    <span class="exp-tag">EDA</span>
+                    <span class="exp-tag">Machine Learning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="projects">
         <h2 class="section-title" data-aos="fade-up">My Projects</h2>
         <div class="projects-grid">
-            <div class="project-card" data-link="https://github.com/Sameer-achara/my_quiz.git" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="project-header"><h3>My Quiz</h3><i class="project-icon fas fa-question-circle"></i></div>
-                <p class="project-desc">A Python-based interactive quiz game.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/Student-Result-Analyzer.git" data-aos="fade-up" data-aos-delay="200">
-                <div class="project-header"><h3>Student-Result-Analyzer</h3><i class="project-icon fas fa-graduation-cap"></i></div>
-                <p class="project-desc">Python project to calculate student marks, percentage, grades, pass/fail status, subject-wise toppers, and export results to Excel.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/IPL-2025-Batting-Statistics-Dashboard.git" data-aos="fade-up" data-aos-delay="300">
-                <div class="project-header"><h3>IPL-2025-Batting-Statistics-Dashboard</h3><i class="project-icon fas fa-list"></i></div>
-                <p class="project-desc">An interactive Python dashboard for analyzing IPL 2025 batting statistics with beautiful visualizations...</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/Sam-s-MultiTool.git" data-aos="fade-up" data-aos-delay="400">
-                <div class="project-header"><h3>Sam-s-MultiTool</h3><i class="project-icon fas fa-tools"></i></div>
-                <p class="project-desc">This Python project is a command-line interface (CLI) application that combines multiple interactive tools and games into a single hub...</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/bollywood-music-analyzer.git" data-aos="fade-up" data-aos-delay="500">
-                <div class="project-header"><h3>Bollywood-music-analyzer</h3><i class="project-icon fas fa-headphones"></i></div>
-                <p class="project-desc">A Python mini-project that filters Bollywood songs based on mood, rating, and popularity using pandas.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/movie_rating_analyzer.git" data-aos="fade-up" data-aos-delay="600">
-                <div class="project-header"><h3>Movie_rating_analyzer</h3><i class="project-icon fas fa-star"></i></div>
-                <p class="project-desc">A Python project to analyze and filter movies dataset with features like search by title, genre, year, and rating.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/Weather-Data-Analysis-India" data-aos="fade-up" data-aos-delay="600">
-                <div class="project-header"><h3>India Weather Data Analysis</h3><i class="project-icon fas fa-cloud-sun"></i></div>
-                <p class="project-desc">A Python project to analyze weather and AQI data of 50 Indian cities, featuring statistical summaries, trend detection, and visualization.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/BMI_Calculator" data-aos="fade-up" data-aos-delay="600">
-                <div class="project-header"><h3>BMI Calculator</h3><i class="project-icon fas fa-heartbeat"></i></div>
-                <p class="project-desc">A Python project to calculate Body Mass Index (BMI) with user-friendly input, health category classification, and clear results visualization.</p>
-            </div>
-            <div class="project-card" data-link="https://github.com/Sameer-achara/stone-paper-scissors" data-aos="fade-up" data-aos-delay="600">
-                <div class="project-header"><h3>Stone Paper Scissor Game</h3><i class="project-icon fas fa-gamepad"></i></div>
-                <p class="project-desc">A Python project implementing the classic Stone–Paper–Scissor game with interactive user input, random computer moves, and instant win/lose/draw results.</p>
+                <p class="project-desc">A Python-based interactive quiz game with multiple categories and score tracking.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/my_quiz.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
             </div>
 
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-header"><h3>Student Result Analyzer</h3><i class="project-icon fas fa-graduation-cap"></i></div>
+                <p class="project-desc">Calculates student marks, percentage, grades, pass/fail status, subject-wise toppers, and exports results to Excel.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">OpenPyXL</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/Student-Result-Analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
             </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-header"><h3>IPL 2025 Batting Dashboard</h3><i class="project-icon fas fa-list"></i></div>
+                <p class="project-desc">An interactive Python dashboard for analyzing IPL 2025 batting statistics with beautiful visualizations.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">Matplotlib</span>
+                    <span class="tech-badge">Plotly</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/IPL-2025-Batting-Statistics-Dashboard.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-header"><h3>Sam's MultiTool</h3><i class="project-icon fas fa-tools"></i></div>
+                <p class="project-desc">A CLI application that combines multiple interactive tools and games into a single hub with a menu-driven interface.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">CLI</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/Sam-s-MultiTool.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="project-header"><h3>Bollywood Music Analyzer</h3><i class="project-icon fas fa-headphones"></i></div>
+                <p class="project-desc">A Python mini-project that filters Bollywood songs based on mood, rating, and popularity using pandas.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/bollywood-music-analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-header"><h3>Movie Rating Analyzer</h3><i class="project-icon fas fa-star"></i></div>
+                <p class="project-desc">Analyze and filter a movies dataset with search by title, genre, year, and rating features.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">Matplotlib</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/movie_rating_analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="700">
+                <div class="project-header"><h3>India Weather Analysis</h3><i class="project-icon fas fa-cloud-sun"></i></div>
+                <p class="project-desc">Analyze weather and AQI data of 50 Indian cities with statistical summaries, trend detection, and visualization.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">NumPy</span>
+                    <span class="tech-badge">Matplotlib</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/Weather-Data-Analysis-India" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="800">
+                <div class="project-header"><h3>BMI Calculator</h3><i class="project-icon fas fa-heartbeat"></i></div>
+                <p class="project-desc">Calculate Body Mass Index with health category classification and clear results visualization.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Matplotlib</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/BMI_Calculator" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="900">
+                <div class="project-header"><h3>Stone Paper Scissors</h3><i class="project-icon fas fa-gamepad"></i></div>
+                <p class="project-desc">Classic Stone–Paper–Scissors game with interactive user input, random computer moves, and score tracking.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                </div>
+                <div class="project-actions">
+                    <a href="https://github.com/Sameer-achara/stone-paper-scissors" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
    <section id="skills">
   <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
   <div class="skills-container">
-
-    <!-- Python -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
-      <div class="skill-name">
-        <i class="fab fa-python"></i> <span>Python</span>
-      </div>
+      <div class="skill-name"><span><i class="fab fa-python" style="margin-right:0.5rem;"></i>Python</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- HTML -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
-      <div class="skill-name">
-        <i class="fab fa-html5"></i> <span>HTML</span>
-      </div>
+      <div class="skill-name"><span><i class="fab fa-html5" style="margin-right:0.5rem;"></i>HTML</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- CSS -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
-      <div class="skill-name">
-        <i class="fab fa-css3-alt"></i> <span>CSS</span>
-      </div>
+      <div class="skill-name"><span><i class="fab fa-css3-alt" style="margin-right:0.5rem;"></i>CSS</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- C++ -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="400">
-      <div class="skill-name">
-        <i class="fas fa-code"></i> <span>C++</span>
-      </div>
+      <div class="skill-name"><span><i class="fas fa-code" style="margin-right:0.5rem;"></i>C++</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- C -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="500">
-      <div class="skill-name">
-        <i class="fas fa-terminal"></i> <span>C</span>
-      </div>
+      <div class="skill-name"><span><i class="fas fa-terminal" style="margin-right:0.5rem;"></i>C</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- Pandas / NumPy / Matplotlib -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="600">
-      <div class="skill-name">
-        <i class="fas fa-chart-line"></i> <span>Pandas / NumPy / Matplotlib</span>
-      </div>
+      <div class="skill-name"><span><i class="fas fa-chart-line" style="margin-right:0.5rem;"></i>Pandas / NumPy / Matplotlib</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- GitHub -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="700">
-      <div class="skill-name">
-        <i class="fab fa-github"></i> <span>GitHub</span>
-      </div>
+      <div class="skill-name"><span><i class="fab fa-github" style="margin-right:0.5rem;"></i>GitHub</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
-    <!-- VS Code -->
     <div class="skill-box" data-aos="fade-up" data-aos-delay="800">
-      <div class="skill-name">
-        <i class="fas fa-laptop-code"></i> <span>VS Code</span>
-      </div>
+      <div class="skill-name"><span><i class="fas fa-laptop-code" style="margin-right:0.5rem;"></i>VS Code</span></div>
       <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
     </div>
-
   </div>
 </section>
 
@@ -352,7 +471,14 @@
         </div>
     </section>
     
-    <footer><p>&copy; 2025 Sameer The Developer. All Rights Reserved.</p></footer>
+    <footer>
+        <p>&copy; 2025 Sameer The Developer. All Rights Reserved.</p>
+        <div style="margin-top:1rem; display:flex; justify-content:center; gap:1.5rem;">
+            <a href="https://github.com/Sameer-achara" target="_blank" style="color:var(--text-secondary); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-secondary)'"><i class="fab fa-github" style="margin-right:0.4rem;"></i>GitHub</a>
+            <a href="https://www.linkedin.com/in/sameer-achara-9a894b3ba/" target="_blank" style="color:var(--text-secondary); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-secondary)'"><i class="fab fa-linkedin-in" style="margin-right:0.4rem;"></i>LinkedIn</a>
+            <a href="Sameer_Achara_Resume_updated.pdf" download style="color:var(--text-secondary); text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-secondary)'"><i class="fas fa-file-alt" style="margin-right:0.4rem;"></i>Resume</a>
+        </div>
+    </footer>
     <div class="modal"></div>
     <a href="#" id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></a>
 
@@ -427,20 +553,6 @@
                 });
             });
 
-            const modal = document.querySelector('.modal');
-            projectCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const title = card.querySelector('h3').textContent;
-                    const desc = card.querySelector('.project-desc').textContent;
-                    const link = card.dataset.link;
-                    modal.innerHTML = `<div class="modal-content"><button class="modal-close">&times;</button><h2>${title}</h2><p>${desc}</p><a href="${link}" target="_blank" class="btn btn-primary modal-btn"><i class="fab fa-github"></i> View on GitHub</a></div>`;
-                    modal.classList.add('active');
-                    modal.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
-                });
-            });
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -460,21 +572,7 @@
                     if (entry.isIntersecting) {
                         const skillBox = entry.target;
                         const progressBar = skillBox.querySelector('.skill-progress');
-                        const percentText = skillBox.querySelector('.skill-percent');
-                        const targetWidth = parseInt(progressBar.dataset.width);
-
-                        progressBar.style.width = targetWidth + '%';
-
-                        let currentPercent = 0;
-                        const interval = setInterval(() => {
-                            if (currentPercent >= targetWidth) {
-                                clearInterval(interval);
-                                if (percentText) percentText.textContent = targetWidth + '%';
-                            } else {
-                                currentPercent++;
-                                if (percentText) percentText.textContent = currentPercent + '%';
-                            }
-                        }, 20);
+                        progressBar.style.width = '100%';
                         observer.unobserve(skillBox);
                     }
                 });
