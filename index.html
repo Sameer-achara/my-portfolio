@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sameer - Python Developer Portfolio</title>
+    <title>Sameer Achara - Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -40,6 +40,27 @@
 
         .grid-bg { position: fixed; inset: 0; background-image: linear-gradient(rgba(244, 63, 94, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(244, 63, 94, 0.03) 1px, transparent 1px); background-size: 60px 60px; z-index: -1; }
         body.dark-mode .grid-bg { background-image: linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px); }
+        /* Futuristic Particle Background */
+#particleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+body.dark-mode #particleCanvas {
+    opacity: 0.4;
+}
+
+/* Accessibility: Reduce motion when requested */
+@media (prefers-reduced-motion: reduce) {
+    .gradient-blob {
+        animation: none !important;
+    }
+}
 
         nav { position: fixed; top: 0; width: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(244, 63, 94, 0.15); z-index: 1000; padding: 1.2rem 2rem; transition: all 0.3s ease; }
         body.dark-mode nav { background: rgba(248, 250, 252, 0.85); border-bottom-color: rgba(56, 189, 248, 0.2); }
@@ -189,6 +210,606 @@
         @media (max-width: 992px) { .hero, .about-content { grid-template-columns: 1fr; text-align: center; } .hero-content { order: 2; } .hero-image { order: 1; margin-bottom: 2rem; } .hero-desc { margin: 0 auto 2.5rem; } .hero-buttons, .social-links { justify-content: center; } .experience-timeline::before { display: none; } .exp-card { padding-left: 2rem; } .exp-dot { display: none; } }
         @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 1rem; } .hero { padding: 120px 1rem 60px; } .hero h1 { font-size: 2.5rem; } .profile-frame { width: 250px; height: 300px; } .profile-inner { font-size: 70px; } .btn { width: 100%; justify-content: center; } .hero-buttons { flex-direction: column; } section { padding: 60px 1rem; } .section-title { font-size: 2rem; } .modal-content { padding: 2rem; } .cursor { display: none; } body { cursor: auto; } .nav-resume-btn { display: none; } }
         @media (max-width: 480px) { .hero h1 { font-size: 2rem; } .role-text { font-size: 1.3rem; } .social-links { gap: 1rem; } .social-link { width: 45px; height: 45px; font-size: 1rem; } .section-title { font-size: 1.8rem; } }
+        /* ===== DATA SCIENCE HERO WORKSPACE ===== */
+
+.ds-frame {
+    width: 100%;
+    max-width: 510px;
+    height: auto;
+    min-height: 430px;
+    border-radius: 22px;
+    overflow: visible;
+    padding: 3px;
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        #8B5CF6,
+        var(--accent)
+    );
+    box-shadow: 0 25px 70px rgba(139, 92, 246, 0.20);
+    animation: dsFloat 5s ease-in-out infinite;
+}
+
+.ds-frame::before {
+    display: none;
+}
+
+.ds-workspace {
+    width: 100%;
+    min-height: 424px;
+    padding: 15px;
+    border-radius: 19px;
+    background: #111827;
+    color: #E5E7EB;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.ds-topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #334155;
+    font-size: 11px;
+}
+
+.ds-window-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.ds-window-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FB7185;
+}
+
+.ds-window-dots span:nth-child(2) {
+    background: #FBBF24;
+}
+
+.ds-window-dots span:nth-child(3) {
+    background: #34D399;
+}
+
+.ds-file-name {
+    color: #CBD5E1;
+    margin-left: 5px;
+    flex: 1;
+}
+
+.ds-file-name i {
+    color: #FBBF24;
+    margin-right: 5px;
+}
+
+.ds-status {
+    color: #34D399;
+    font-size: 10px;
+}
+
+.ds-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.ds-code-panel,
+.ds-chart-panel {
+    min-width: 0;
+    padding: 12px 9px;
+    border-radius: 12px;
+    background: #1E293B;
+    border: 1px solid #334155;
+}
+
+.ds-panel-heading {
+    font-size: 11px;
+    font-weight: 600;
+    color: #E2E8F0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #334155;
+    white-space: nowrap;
+}
+
+.ds-panel-heading i {
+    color: #38BDF8;
+    margin-right: 4px;
+}
+
+.ds-code {
+    margin-top: 14px;
+    font-family: Consolas, monospace;
+    font-size: 9px;
+    line-height: 2.1;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ds-line-no {
+    color: #64748B;
+    margin-right: 5px;
+}
+
+.ds-purple {
+    color: #C084FC;
+}
+
+.ds-blue {
+    color: #7DD3FC;
+}
+
+.ds-yellow {
+    color: #FDE68A;
+}
+
+.ds-green {
+    color: #86EFAC;
+}
+
+.ds-white,
+.ds-variable {
+    color: #E2E8F0;
+}
+
+.ds-code-space {
+    height: 9px;
+}
+
+.ds-output {
+    color: #34D399;
+    font-size: 9px;
+    margin-top: 5px;
+}
+
+.ds-chart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    color: #CBD5E1;
+    margin-top: 13px;
+}
+
+.ds-chart-period {
+    color: #38BDF8;
+    background: rgba(56, 189, 248, 0.12);
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+
+.ds-chart {
+    height: 130px;
+    display: flex;
+    gap: 7px;
+    margin-top: 12px;
+}
+
+.ds-y-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #64748B;
+    font-size: 8px;
+    padding-bottom: 17px;
+}
+
+.ds-chart-area {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 17px;
+}
+
+.ds-grid-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #334155;
+}
+
+.ds-grid-line:nth-child(1) {
+    top: 0;
+}
+
+.ds-grid-line:nth-child(2) {
+    top: 25%;
+}
+
+.ds-grid-line:nth-child(3) {
+    top: 50%;
+}
+
+.ds-grid-line:nth-child(4) {
+    top: 75%;
+}
+
+.ds-bars {
+    position: absolute;
+    inset: 0 0 17px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.ds-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    color: #94A3B8;
+    font-size: 8px;
+    z-index: 1;
+}
+
+.ds-bar {
+    width: 100%;
+    max-width: 22px;
+    height: var(--bar-height);
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, #38BDF8, #8B5CF6);
+    transform-origin: bottom;
+    animation: dsBarGrow 1.2s ease-out both;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.12);
+}
+
+.ds-bar-group:nth-child(2) .ds-bar {
+    animation-delay: 0.15s;
+}
+
+.ds-bar-group:nth-child(3) .ds-bar {
+    animation-delay: 0.3s;
+}
+
+.ds-bar-group:nth-child(4) .ds-bar {
+    animation-delay: 0.45s;
+}
+
+.ds-bar-group:nth-child(5) .ds-bar {
+    animation-delay: 0.6s;
+}
+
+.ds-chart-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 9px;
+    padding-top: 9px;
+    border-top: 1px solid #334155;
+    color: #94A3B8;
+    font-size: 8px;
+}
+
+.ds-chart-footer i {
+    color: #38BDF8;
+    font-size: 7px;
+}
+
+.ds-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.ds-tech-stack span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 9px;
+    border-radius: 7px;
+    border: 1px solid #334155;
+    background: #1E293B;
+    color: #CBD5E1;
+    font-size: 10px;
+}
+
+.ds-tech-stack i {
+    color: #38BDF8;
+}
+
+.ds-tech-stack span:first-child i {
+    color: #FBBF24;
+}
+
+.ds-bottom-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 13px;
+    padding-top: 10px;
+    border-top: 1px solid #334155;
+    color: #94A3B8;
+    font-size: 9px;
+}
+
+.ds-bottom-status span:last-child {
+    color: #34D399;
+}
+
+@keyframes dsBarGrow {
+    from {
+        transform: scaleY(0.05);
+        opacity: 0.3;
+    }
+
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes dsFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .ds-frame {
+        max-width: 430px;
+        min-height: auto;
+    }
+
+    .ds-workspace {
+        min-height: auto;
+        padding: 12px;
+    }
+
+    .ds-code {
+        font-size: 8px;
+    }
+
+    .ds-panel-heading {
+        font-size: 10px;
+    }
+
+    .ds-tech-stack span {
+        font-size: 9px;
+        padding: 5px 7px;
+    }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-frame,
+    .ds-bar {
+        animation: none;
+    }
+}
+
+/* ===== EXPERIENCE PROJECT LINKS ===== */
+
+.exp-project {
+    margin-top: 24px;
+    padding: 18px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 14px;
+    background: rgba(139, 92, 246, 0.06);
+}
+
+.exp-project h3 {
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.exp-project h3 i {
+    color: var(--primary);
+    margin-right: 8px;
+}
+
+.exp-project p {
+    margin: 0 0 16px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.exp-project-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.exp-project-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.demo-btn {
+    background: var(--primary);
+    color: #fff;
+}
+
+.github-btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--primary);
+}
+
+.exp-project-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.2);
+}
+
+.github-btn:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .exp-project-buttons {
+        flex-direction: column;
+    }
+
+    .exp-project-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* ===== Technical Skills Section ===== */
+
+.technical-skills {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.skills-subtitle {
+    color: var(--text-secondary, #94a3b8);
+    font-size: 1.1rem;
+    margin: 15px 0 45px;
+}
+
+/* Skill Filters */
+
+.skill-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 45px;
+}
+
+.skill-filter {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 11px;
+    background: #202b3e;
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.skill-filter:hover {
+    background: #334155;
+    transform: translateY(-2px);
+}
+
+.skill-filter.active {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: #ffffff;
+}
+
+/* Skills Grid */
+
+.skills-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Individual Skill Card */
+
+.skill-card {
+    min-height: 120px;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+
+    background: rgba(30, 41, 59, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 15px;
+
+    color: #e2e8f0;
+    transition: transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+}
+
+.skill-card i {
+    font-size: 2rem;
+    color: #38bdf8;
+}
+
+.skill-card span {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    border-color: #38bdf8;
+    background: rgba(51, 65, 85, 0.85);
+}
+
+/* Filter Animation */
+
+.skill-card.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .skill-filter {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+
+    .skills-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .skills-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .skill-card {
+        min-height: 100px;
+        padding: 18px 10px;
+    }
+
+    .skill-card i {
+        font-size: 1.7rem;
+    }
+
+    .skill-card span {
+        font-size: 0.9rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -199,6 +820,7 @@
         <div class="gradient-blob blob-3"></div>
     </div>
     <div class="grid-bg"></div>
+    <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
     <nav id="navbar">
         <div class="nav-container">
@@ -245,10 +867,159 @@
             </div>
         </div>
         <div class="hero-image">
-             <div class="profile-frame">
-                <div class="profile-inner">🐍 👨‍💻</div>
+    <div class="profile-frame ds-frame">
+        <div class="ds-workspace">
+
+            <div class="ds-topbar">
+                <div class="ds-window-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <span class="ds-file-name">
+                    <i class="fab fa-python"></i> analysis.py
+                </span>
+
+                <span class="ds-status">● Live</span>
             </div>
+
+            <div class="ds-main">
+
+                <!-- Python Coding Workspace -->
+                <div class="ds-code-panel">
+                    <div class="ds-panel-heading">
+                        <i class="fas fa-code"></i> Python Workspace
+                    </div>
+
+                    <div class="ds-code">
+                        <div>
+                            <span class="ds-line-no">01</span>
+                            <span class="ds-purple">import</span>
+                            <span class="ds-blue">pandas</span>
+                            <span class="ds-purple">as</span>
+                            <span class="ds-blue">pd</span>
+                        </div>
+
+                        <div>
+                            <span class="ds-line-no">02</span>
+                            <span class="ds-purple">import</span>
+                            <span class="ds-blue">matplotlib.pyplot</span>
+                            <span class="ds-purple">as</span>
+                            <span class="ds-blue">plt</span>
+                        </div>
+
+                        <div class="ds-code-space">
+                            <span class="ds-line-no">03</span>
+                        </div>
+
+                        <div>
+                            <span class="ds-line-no">04</span>
+                            <span class="ds-variable">df</span>
+                            <span class="ds-white"> = </span>
+                            <span class="ds-blue">pd</span><span class="ds-white">.</span><span class="ds-yellow">read_csv</span><span class="ds-white">(</span><span class="ds-green">"data.csv"</span><span class="ds-white">)</span>
+                        </div>
+
+                        <div>
+                            <span class="ds-line-no">05</span>
+                            <span class="ds-variable">df</span><span class="ds-white">.</span><span class="ds-yellow">describe</span><span class="ds-white">()</span>
+                        </div>
+
+                        <div class="ds-code-space">
+                            <span class="ds-line-no">06</span>
+                        </div>
+
+                        <div class="ds-output">
+                            <i class="fas fa-check-circle"></i>
+                            Analysis complete
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Visualization Dashboard -->
+                <div class="ds-chart-panel">
+                    <div class="ds-panel-heading">
+                        <i class="fas fa-chart-column"></i>
+                        Data Insights
+                    </div>
+
+                    <div class="ds-chart-summary">
+                        <span>Dataset Overview</span>
+                        <span class="ds-chart-period">EDA</span>
+                    </div>
+
+                    <div class="ds-chart">
+                        <div class="ds-y-labels">
+                            <span>100</span>
+                            <span>75</span>
+                            <span>50</span>
+                            <span>25</span>
+                        </div>
+
+                        <div class="ds-chart-area">
+                            <div class="ds-grid-line"></div>
+                            <div class="ds-grid-line"></div>
+                            <div class="ds-grid-line"></div>
+                            <div class="ds-grid-line"></div>
+
+                            <div class="ds-bars">
+                                <div class="ds-bar-group">
+                                    <div class="ds-bar" style="--bar-height:45%;"></div>
+                                    <span>Jan</span>
+                                </div>
+
+                                <div class="ds-bar-group">
+                                    <div class="ds-bar" style="--bar-height:75%;"></div>
+                                    <span>Feb</span>
+                                </div>
+
+                                <div class="ds-bar-group">
+                                    <div class="ds-bar" style="--bar-height:55%;"></div>
+                                    <span>Mar</span>
+                                </div>
+
+                                <div class="ds-bar-group">
+                                    <div class="ds-bar" style="--bar-height:90%;"></div>
+                                    <span>Apr</span>
+                                </div>
+
+                                <div class="ds-bar-group">
+                                    <div class="ds-bar" style="--bar-height:68%;"></div>
+                                    <span>May</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ds-chart-footer">
+                        <span>
+                            <i class="fas fa-circle"></i>
+                            Sample data
+                        </span>
+                        <span>Visualization</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="ds-tech-stack">
+                <span><i class="fab fa-python"></i> Python</span>
+                <span><i class="fas fa-table"></i> Pandas</span>
+                <span><i class="fas fa-chart-line"></i> Matplotlib</span>
+            </div>
+
+            <div class="ds-bottom-status">
+                <span>
+                    <i class="fas fa-terminal"></i>
+                    Data analysis workspace
+                </span>
+                <span>Ready ✓</span>
+            </div>
+
         </div>
+    </div>
+</div>
     </section>
 
     <section id="about">
@@ -271,216 +1042,616 @@
 
     <!-- ===== EXPERIENCE SECTION (NEW) ===== -->
     <section id="experience">
-        <h2 class="section-title" data-aos="fade-up">Experience</h2>
-        <div class="experience-timeline">
-            <div class="exp-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="exp-dot"></div>
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">Data Science Intern</div>
-                        <div class="exp-company"><i class="fas fa-building" style="margin-right:0.4rem;"></i>DMV CoreTech</div>
+    <h2 class="section-title" data-aos="fade-up">Experience</h2>
+
+    <div class="experience-timeline">
+        <div class="exp-card" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="exp-dot"></div>
+
+            <div class="exp-header">
+                <div>
+                    <div class="exp-title">Data Science Intern</div>
+
+                    <div class="exp-company">
+                        <i class="fas fa-building" style="margin-right:0.4rem;"></i>
+                        DMV CoreTech
                     </div>
-                    <div class="exp-date"><i class="fas fa-calendar-alt" style="margin-right:0.4rem;"></i>May 2026 – June 2026</div>
                 </div>
-                <div class="exp-desc">
-                    <ul>
-                        <li>Working on Exploratory Data Analysis (EDA) and data preprocessing pipelines</li>
-                        <li>Using Python, Pandas, NumPy, and Scikit-learn on real-world datasets</li>
-                        <li>Learning and applying ML workflows, feature engineering, and model evaluation</li>
-                        <li>Gaining practical exposure to industry data science practices and standards</li>
-                    </ul>
-                </div>
-                <div class="exp-tags">
-                    <span class="exp-tag">Python</span>
-                    <span class="exp-tag">Pandas</span>
-                    <span class="exp-tag">NumPy</span>
-                    <span class="exp-tag">Scikit-learn</span>
-                    <span class="exp-tag">EDA</span>
-                    <span class="exp-tag">Machine Learning</span>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="projects">
-        <h2 class="section-title" data-aos="fade-up">My Projects</h2>
-        <div class="projects-grid">
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="project-header"><h3>My Quiz</h3><i class="project-icon fas fa-question-circle"></i></div>
-                <p class="project-desc">A Python-based interactive quiz game with multiple categories and score tracking.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/my_quiz.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                <div class="exp-date">
+                    <i class="fas fa-calendar-alt" style="margin-right:0.4rem;"></i>
+                    May 2026 – June 2026
                 </div>
             </div>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="project-header"><h3>Student Result Analyzer</h3><i class="project-icon fas fa-graduation-cap"></i></div>
-                <p class="project-desc">Calculates student marks, percentage, grades, pass/fail status, subject-wise toppers, and exports results to Excel.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Pandas</span>
-                    <span class="tech-badge">Matplotlib</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/Student-Result-Analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
+            <div class="exp-desc">
+                <ul>
+                    <li>Worked on Exploratory Data Analysis (EDA) and data preprocessing.</li>
+                    <li>Used Python, Pandas, and NumPy to analyze datasets and extract meaningful insights.</li>
+                    <li>Explored data visualization techniques to identify patterns and trends.</li>
+                    <li>Gained practical exposure to data science workflows and industry practices.</li>
+                </ul>
             </div>
 
-          <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-
-        <div class="project-header">
-            <h3>IPL 2025 Batting Dashboard</h3>
-            <i class="project-icon fas fa-chart-line"></i>
-        </div>
-    
-        <p class="project-desc">
-            An interactive Python dashboard for analyzing IPL 2025 batting statistics with dynamic filters, KPI cards, player search, and beautiful visualizations.
-        </p>
-    
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Pandas</span>
-            <span class="tech-badge">NumPy</span>
-            <span class="tech-badge">Matplotlib</span>
-            <span class="tech-badge">Seaborn</span>
-            <span class="tech-badge">Streamlit</span>
-        </div>
-    
-        <div class="project-actions">
-    
-            <a href="https://github.com/Sameer-achara/IPL-2025-Batting-Statistics-Dashboard"
-               target="_blank"
-               class="btn-ghost btn-ghost-primary">
-                <i class="fab fa-github"></i> GitHub
-            </a>
-    
-            <a href="https://ipl-2025-batting-statistics-dashboard-5zvckqsnjzc62ditfpqwer.streamlit.app/"
-               target="_blank"
-               class="btn-ghost btn-ghost-primary">
-                <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-    
-        </div>
-    
-    </div>
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="project-header"><h3>Sam's MultiTool</h3><i class="project-icon fas fa-tools"></i></div>
-                <p class="project-desc">A CLI application that combines multiple interactive tools and games into a single hub with a menu-driven interface.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">CLI</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/Sam-s-MultiTool.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
+            <div class="exp-tags">
+                <span class="exp-tag">Python</span>
+                <span class="exp-tag">Pandas</span>
+                <span class="exp-tag">NumPy</span>
+                <span class="exp-tag">EDA</span>
+                <span class="exp-tag">Data Visualization</span>
+                <span class="exp-tag">Data Science</span>
             </div>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
-                <div class="project-header"><h3>Bollywood Music Analyzer</h3><i class="project-icon fas fa-headphones"></i></div>
-                <p class="project-desc">A Python mini-project that filters Bollywood songs based on mood, rating, and popularity using pandas.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Pandas</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/bollywood-music-analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
-            </div>
+            <!-- Internship Project -->
+            <div class="exp-project">
+                <h3>
+                    <i class="fas fa-chart-line"></i>
+                    Internship Project: Employee Performance Analysis
+                </h3>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="600">
-                <div class="project-header"><h3>Movie Rating Analyzer</h3><i class="project-icon fas fa-star"></i></div>
-                <p class="project-desc">Analyze and filter a movies dataset with search by title, genre, year, and rating features.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Pandas</span>
-                    <span class="tech-badge">Matplotlib</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/movie_rating_analyzer.git" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
-            </div>
+                <p>
+                    Analyzed employee performance data to explore trends,
+                    compare performance across departments, and visualize
+                    insights using Python and data analysis techniques.
+                </p>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="700">
-                <div class="project-header"><h3>India Weather Analysis</h3><i class="project-icon fas fa-cloud-sun"></i></div>
-                <p class="project-desc">Analyze weather and AQI data of 50 Indian cities with statistical summaries, trend detection, and visualization.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Pandas</span>
-                    <span class="tech-badge">NumPy</span>
-                    <span class="tech-badge">Matplotlib</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/Weather-Data-Analysis-India" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
-            </div>
+                <div class="exp-project-buttons">
+                    <a href="https://numpy-app-plotlyexpressapporbuiltaspartofmyinternshipprojecton.streamlit.app/"
+                       class="exp-project-btn demo-btn"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i>
+                        Live Demo
+                    </a>
 
-            <div class="project-card" data-aos="fade-up" data-aos-delay="800">
-                <div class="project-header"><h3>BMI Calculator</h3><i class="project-icon fas fa-heartbeat"></i></div>
-                <p class="project-desc">Calculate Body Mass Index with health category classification and clear results visualization.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Matplotlib</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/BMI_Calculator" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
-                </div>
-            </div>
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="900">
-                <div class="project-header"><h3>Stone Paper Scissors</h3><i class="project-icon fas fa-gamepad"></i></div>
-                <p class="project-desc">Classic Stone–Paper–Scissors game with interactive user input, random computer moves, and score tracking.</p>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                </div>
-                <div class="project-actions">
-                    <a href="https://github.com/Sameer-achara/stone-paper-scissors" target="_blank" class="btn-ghost btn-ghost-primary"><i class="fab fa-github"></i>GitHub</a>
+                    <a href="https://github.com/Sameer-achara/Employee-Performance-Analysis"
+                       class="exp-project-btn github-btn"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                        GitHub Repository
+                    </a>
                 </div>
             </div>
 
         </div>
-    </section>
+    </div>
+</section>
 
-   <section id="skills">
-  <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
-  <div class="skills-container">
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
-      <div class="skill-name"><span><i class="fab fa-python" style="margin-right:0.5rem;"></i>Python</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+   <section id="projects">
+    <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
+
+    <div class="projects-grid">
+
+        <!-- 1. Car Price Prediction -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-header">
+                <h3>Car Price Prediction</h3>
+                <i class="project-icon fas fa-car"></i>
+            </div>
+
+            <p class="project-desc">
+                A machine learning application that predicts car prices based
+                on relevant vehicle features using a trained prediction model.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">Scikit-learn</span>
+                <span class="tech-badge">Machine Learning</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="https://github.com/Sameer-achara/CAR-PRICE-PREDICTION"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="https://car-price-predictor-sam-tlkjgxo3zj6ebkucrcs3cm.streamlit.app/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 2. IPL Match Winner Prediction -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-header">
+                <h3>IPL Match Winner Prediction</h3>
+                <i class="project-icon fas fa-trophy"></i>
+            </div>
+
+            <p class="project-desc">
+                A machine learning project that predicts IPL match outcomes
+                using match-related features and historical cricket data.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">Scikit-learn</span>
+                <span class="tech-badge">Machine Learning</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_IPL_WINNER_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_IPL_WINNER_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 3. Calories Burn Predictor -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="project-header">
+                <h3>Calories Burn Predictor</h3>
+                <i class="project-icon fas fa-fire"></i>
+            </div>
+
+            <p class="project-desc">
+                A machine learning application that estimates calories burned
+                based on user activity and relevant physical parameters.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">NumPy</span>
+                <span class="tech-badge">Machine Learning</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_CALORIES_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_CALORIES_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 4. Weather Data Analysis Dashboard -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="project-header">
+                <h3>Weather Data Analysis Dashboard</h3>
+                <i class="project-icon fas fa-cloud-sun"></i>
+            </div>
+
+            <p class="project-desc">
+                An interactive dashboard for analyzing weather data and
+                exploring trends, patterns, and visual insights.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">NumPy</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">Streamlit</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="https://github.com/Sameer-achara/Weather-Data-Analysis-India"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_WEATHER_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 5. IPL Batting Statistics -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="project-header">
+                <h3>IPL Batting Statistics Dashboard</h3>
+                <i class="project-icon fas fa-chart-bar"></i>
+            </div>
+
+            <p class="project-desc">
+                An interactive dashboard for analyzing IPL 2025 batting
+                statistics and comparing player performance through
+                data visualization.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">Data Analysis</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="https://github.com/Sameer-achara/IPL-2025-Batting-Statistics-Dashboard.git"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_IPL_BATTING_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 6. Student Result Analyzer -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="project-header">
+                <h3>Student Result Analyzer</h3>
+                <i class="project-icon fas fa-graduation-cap"></i>
+            </div>
+
+            <p class="project-desc">
+                Analyzes student marks, calculates percentages and grades,
+                identifies toppers, determines pass/fail status, and
+                exports results to Excel.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">Excel</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="https://github.com/Sameer-achara/Student-Result-Analyzer.git"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 7. Sam's MultiTool -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="700">
+            <div class="project-header">
+                <h3>Sam's MultiTool</h3>
+                <i class="project-icon fas fa-tools"></i>
+            </div>
+
+            <p class="project-desc">
+                A Python CLI application that combines multiple interactive
+                tools and games into one hub with a menu-driven interface.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">CLI</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="https://github.com/Sameer-achara/Sam-s-MultiTool.git"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 8. Employee Performance Analysis -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="800">
+            <div class="project-header">
+                <h3>Employee Performance Analysis</h3>
+                <i class="project-icon fas fa-users"></i>
+            </div>
+
+            <p class="project-desc">
+                Analyzes employee performance data to explore trends,
+                compare departments, and visualize performance-related
+                insights using data analysis techniques.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">NumPy</span>
+                <span class="tech-badge">Matplotlib</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_EMPLOYEE_ANALYSIS_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_EMPLOYEE_ANALYSIS_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 9. Customer Purchase Behaviour Analysis -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="900">
+            <div class="project-header">
+                <h3>Customer Purchase Behaviour Analysis</h3>
+                <i class="project-icon fas fa-shopping-cart"></i>
+            </div>
+
+            <p class="project-desc">
+                Analyzes customer purchasing patterns to identify trends,
+                understand buying behaviour, and discover useful business
+                insights from customer data.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">NumPy</span>
+                <span class="tech-badge">Data Visualization</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_CUSTOMER_ANALYSIS_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 10. E-Commerce Analysis -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="1000">
+            <div class="project-header">
+                <h3>E-Commerce Analysis</h3>
+                <i class="project-icon fas fa-store"></i>
+            </div>
+
+            <p class="project-desc">
+                Explores e-commerce sales and customer data to identify
+                sales patterns, analyze purchasing trends, and present
+                meaningful business insights.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Pandas</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">Data Analysis</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_ECOMMERCE_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+
+
+        <!-- 11. Currency Converter -->
+        <div class="project-card" data-aos="fade-up" data-aos-delay="1100">
+            <div class="project-header">
+                <h3>Currency Converter</h3>
+                <i class="project-icon fas fa-money-bill-wave"></i>
+            </div>
+
+            <p class="project-desc">
+                A currency conversion application that helps users convert
+                amounts between currencies using the exchange rates
+                supported by the application.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">API</span>
+                <span class="tech-badge">Currency Conversion</span>
+            </div>
+
+            <div class="project-actions">
+                <a href="YOUR_CURRENCY_CONVERTER_GITHUB_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="YOUR_CURRENCY_CONVERTER_LIVE_DEMO_LINK"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn-ghost btn-ghost-primary">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+            </div>
+        </div>
+
     </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
-      <div class="skill-name"><span><i class="fab fa-html5" style="margin-right:0.5rem;"></i>HTML</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+</section>
+
+   <section id="skills" class="technical-skills">
+    <h2 class="section-title" data-aos="fade-up">
+        Technical Skills
+    </h2>
+
+    <p class="skills-subtitle" data-aos="fade-up">
+        Technologies and tools I use to build projects.
+    </p>
+
+    <!-- Skill Category Filters -->
+    <div class="skill-filters" data-aos="fade-up">
+        <button class="skill-filter active" data-filter="all">All</button>
+        <button class="skill-filter" data-filter="programming">
+            Programming Languages
+        </button>
+        <button class="skill-filter" data-filter="data-science">
+            Data Science
+        </button>
+        <button class="skill-filter" data-filter="tools">
+            Tools & Technologies
+        </button>
     </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
-      <div class="skill-name"><span><i class="fab fa-css3-alt" style="margin-right:0.5rem;"></i>CSS</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
+
+    <!-- Skills Container -->
+    <div class="skills-grid">
+
+        <!-- Python -->
+        <div class="skill-card" data-category="programming">
+            <i class="fab fa-python"></i>
+            <span>Python</span>
+        </div>
+
+        <!-- C++ -->
+        <div class="skill-card" data-category="programming">
+            <i class="fas fa-code"></i>
+            <span>C++</span>
+        </div>
+
+        <!-- C -->
+        <div class="skill-card" data-category="programming">
+            <i class="fas fa-terminal"></i>
+            <span>C</span>
+        </div>
+
+        <!-- HTML -->
+        <div class="skill-card" data-category="programming">
+            <i class="fab fa-html5"></i>
+            <span>HTML5</span>
+        </div>
+
+        <!-- CSS -->
+        <div class="skill-card" data-category="programming">
+            <i class="fab fa-css3-alt"></i>
+            <span>CSS3</span>
+        </div>
+
+        <!-- Pandas -->
+        <div class="skill-card" data-category="data-science">
+            <i class="fas fa-table"></i>
+            <span>Pandas</span>
+        </div>
+
+        <!-- NumPy -->
+        <div class="skill-card" data-category="data-science">
+            <i class="fas fa-calculator"></i>
+            <span>NumPy</span>
+        </div>
+
+        <!-- Matplotlib -->
+        <div class="skill-card" data-category="data-science">
+            <i class="fas fa-chart-line"></i>
+            <span>Matplotlib</span>
+        </div>
+
+        <!-- GitHub -->
+        <div class="skill-card" data-category="tools">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </div>
+
+        <!-- VS Code -->
+        <div class="skill-card" data-category="tools">
+            <i class="fas fa-laptop-code"></i>
+            <span>VS Code</span>
+        </div>
+
+        <!-- Git -->
+        <div class="skill-card" data-category="tools">
+            <i class="fab fa-git-alt"></i>
+            <span>Git</span>
+        </div>
+
+                <!-- Seaborn -->
+        <div class="skill-card" data-category="data-science">
+            <i class="fas fa-chart-area"></i>
+            <span>Seaborn</span>
+        </div>
+
+        <!-- Streamlit -->
+        <div class="skill-card" data-category="tools">
+            <i class="fas fa-laptop-code"></i>
+            <span>Streamlit</span>
+        </div>
+
+        <!-- SQL -->
+        <div class="skill-card" data-category="programming">
+            <i class="fas fa-database"></i>
+            <span>SQL</span>
+        </div>
+
+        <!-- Jupyter Notebook -->
+        <div class="skill-card" data-category="tools">
+            <i class="fas fa-book-open"></i>
+            <span>Jupyter Notebook</span>
+        </div>
+
+                <!-- Machine Learning -->
+        <div class="skill-card" data-category="machine-learning">
+            <i class="fas fa-chart-line"></i>
+            <span>Linear Regression</span>
+        </div>
+
+        <div class="skill-card" data-category="machine-learning">
+            <i class="fas fa-project-diagram"></i>
+            <span>Logistic Regression</span>
+        </div>
+
+        <div class="skill-card" data-category="machine-learning">
+            <i class="fas fa-sitemap"></i>
+            <span>Decision Tree</span>
+        </div>
+
+        <div class="skill-card" data-category="machine-learning">
+            <i class="fas fa-tree"></i>
+            <span>Random Forest</span>
+        </div>
+
+        <div class="skill-card" data-category="machine-learning">
+            <i class="fas fa-object-group"></i>
+            <span>K-Means Clustering</span>
+        </div>
+
     </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="400">
-      <div class="skill-name"><span><i class="fas fa-code" style="margin-right:0.5rem;"></i>C++</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
-    </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="500">
-      <div class="skill-name"><span><i class="fas fa-terminal" style="margin-right:0.5rem;"></i>C</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
-    </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="600">
-      <div class="skill-name"><span><i class="fas fa-chart-line" style="margin-right:0.5rem;"></i>Pandas / NumPy / Matplotlib</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
-    </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="700">
-      <div class="skill-name"><span><i class="fab fa-github" style="margin-right:0.5rem;"></i>GitHub</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
-    </div>
-    <div class="skill-box" data-aos="fade-up" data-aos-delay="800">
-      <div class="skill-name"><span><i class="fas fa-laptop-code" style="margin-right:0.5rem;"></i>VS Code</span></div>
-      <div class="skill-bar"><div class="skill-progress" style="width:100%;"></div></div>
-    </div>
-  </div>
 </section>
 
     <section id="contact">
@@ -534,7 +1705,7 @@
             });
 
             const roleTextElement = document.getElementById('roleText');
-            const roles = ["Engineering Student", "Python Developer", "EDA & Visualization Explorer", "AI/ML Enthusiast"];
+            const roles = ["Data Science Enthusiast", "Engineering Student", "Data Analyst", "EDA & Data Visualization Explorer", "Machine Learning Enthusiast"];
             let roleIndex = 0; let charIndex = 0; let isDeleting = false;
             function type() {
                 const currentRole = roles[roleIndex];
@@ -610,7 +1781,259 @@
                 sections.forEach(section => { if (pageYOffset >= section.offsetTop - 150) current = section.id; });
                 navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href').includes(current)));
             });
+                        // Technical Skills Category Filters
+            const skillFilters = document.querySelectorAll('.skill-filter');
+            const skillCards = document.querySelectorAll('.skill-card');
+
+            skillFilters.forEach(button => {
+                button.addEventListener('click', () => {
+
+                    // Update active button
+                    skillFilters.forEach(filter => {
+                        filter.classList.remove('active');
+                    });
+
+                    button.classList.add('active');
+
+                    const selectedCategory = button.dataset.filter;
+
+                    // Filter skill cards
+                    skillCards.forEach(card => {
+                        const category = card.dataset.category;
+
+                        if (
+                            selectedCategory === 'all' ||
+                            category === selectedCategory
+                        ) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+
+                });
+            });
         });
+    </script>
+
+        <script>
+    (() => {
+        const canvas = document.getElementById("particleCanvas");
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        );
+
+        const isMobile = window.matchMedia("(max-width: 768px)");
+
+        let width = 0;
+        let height = 0;
+        let particles = [];
+        let animationId;
+        let lastFrame = 0;
+
+        const mouse = {
+            x: null,
+            y: null
+        };
+
+        // Create floating particles
+        function createParticles() {
+            const area = width * height;
+            const density = isMobile.matches ? 18000 : 13000;
+
+            const count = Math.min(
+                100,
+                Math.max(25, Math.floor(area / density))
+            );
+
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                radius: Math.random() * 1.5 + 0.7
+            }));
+        }
+
+        // Adjust canvas according to screen size
+        function resizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            canvas.width = Math.round(width * dpr);
+            canvas.height = Math.round(height * dpr);
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            createParticles();
+        }
+
+        // Support existing theme toggle
+        function getParticleColor() {
+            return document.body.classList.contains("dark-mode")
+                ? "56, 189, 248"
+                : "244, 63, 94";
+        }
+
+        // Draw particles and connecting lines
+        function drawNetwork() {
+            const color = getParticleColor();
+            const connectionDistance = isMobile.matches ? 90 : 120;
+
+            particles.forEach((particle, i) => {
+
+                // Smooth particle movement
+                if (!reduceMotion.matches) {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    // Bounce particles at screen edges
+                    if (particle.x < 0 || particle.x > width) {
+                        particle.vx *= -1;
+                    }
+
+                    if (particle.y < 0 || particle.y > height) {
+                        particle.vy *= -1;
+                    }
+
+                    particle.x = Math.max(0, Math.min(width, particle.x));
+                    particle.y = Math.max(0, Math.min(height, particle.y));
+
+                    // Subtle mouse interaction
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = particle.x - mouse.x;
+                        const dy = particle.y - mouse.y;
+                        const distance = Math.hypot(dx, dy);
+
+                        if (distance < 110 && distance > 0) {
+                            const force = (110 - distance) / 1100;
+
+                            particle.x += (dx / distance) * force;
+                            particle.y += (dy / distance) * force;
+                        }
+                    }
+                }
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const other = particles[j];
+
+                    const distance = Math.hypot(
+                        particle.x - other.x,
+                        particle.y - other.y
+                    );
+
+                    if (distance < connectionDistance) {
+                        const opacity =
+                            (1 - distance / connectionDistance) * 0.22;
+
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(other.x, other.y);
+
+                        ctx.strokeStyle =
+                            `rgba(${color}, ${opacity})`;
+
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+
+                // Draw glowing dots
+                ctx.beginPath();
+
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle = `rgba(${color}, 0.65)`;
+                ctx.fill();
+            });
+        }
+
+        // Animation loop
+        function animate(timestamp = 0) {
+            if (reduceMotion.matches) {
+                ctx.clearRect(0, 0, width, height);
+                drawNetwork();
+                return;
+            }
+
+            // Limit animation to approximately 30 FPS
+            if (timestamp - lastFrame < 33) {
+                animationId = requestAnimationFrame(animate);
+                return;
+            }
+
+            lastFrame = timestamp;
+
+            ctx.clearRect(0, 0, width, height);
+            drawNetwork();
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Start or restart animation
+        function startAnimation() {
+            cancelAnimationFrame(animationId);
+            lastFrame = 0;
+
+            if (reduceMotion.matches) {
+                ctx.clearRect(0, 0, width, height);
+                drawNetwork();
+            } else {
+                animationId = requestAnimationFrame(animate);
+            }
+        }
+
+        // Mouse movement
+        window.addEventListener("mousemove", (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        }, { passive: true });
+
+        // Reset mouse position when leaving the window
+        window.addEventListener("mouseout", (event) => {
+            if (!event.relatedTarget) {
+                mouse.x = null;
+                mouse.y = null;
+            }
+        });
+
+        // Resize canvas when screen dimensions change
+        window.addEventListener("resize", () => {
+            resizeCanvas();
+            startAnimation();
+        }, { passive: true });
+
+        // Pause animation when the tab is hidden
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                startAnimation();
+            }
+        });
+
+        // Respect accessibility settings
+        reduceMotion.addEventListener("change", startAnimation);
+
+        // Initialize
+        resizeCanvas();
+        startAnimation();
+
+    })();
     </script>
 </body>
 </html>
